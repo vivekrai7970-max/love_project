@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 Happy Birthday My Love! 💕</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <nav class="romantic-nav">
+        <div class="nav-brand">Forever Us</div>
+        <div class="nav-links">
+            <a href="/" class="nav-link active">Birthday</a>
+            <a href="/proposal/" class="nav-link">Proposal</a>
+            <a href="/congratulations/" class="nav-link">Congratulations</a>
+            <a href="/memories/" class="nav-link">Memories</a>
+        </div>
+    </nav>
+
+    <!-- Animated Background -->
+    <div class="background"></div>
+    
+    <!-- Floating Hearts -->
+    <div class="hearts-container">
+        <div class="heart floating-heart"></div>
+        <div class="heart floating-heart"></div>
+        <div class="heart floating-heart"></div>
+        <div class="heart floating-heart"></div>
+        <div class="heart floating-heart"></div>
+        <div class="heart floating-heart"></div>
+    </div>
+
+    <!-- Confetti -->
+    <div class="confetti-container" id="confetti"></div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="birthday-card">
+            <!-- Header with animated text -->
+            <div class="header">
+                <h1 class="main-title">
+                    <span class="letter">H</span>
+                    <span class="letter">A</span>
+                    <span class="letter">P</span>
+                    <span class="letter">P</span>
+                    <span class="letter">Y</span>
+                    <span class="letter">!</span>
+                </h1>
+            </div>
+
+            <!-- Birthday Message -->
+            <div class="message-section">
+                <div class="emoji-container">
+                    <span class="emoji">🎂</span>
+                    <span class="emoji">🎈</span>
+                    <span class="emoji">🎁</span>
+                </div>
+                
+                <h2 class="birthday-text">Happy Birthday</h2>
+                <h2 class="to-my-love">To My Beautiful Love chhoti 💕</h2>
+                
+                <div class="divider"></div>
+
+                <!-- Special Message -->
+                <div class="special-message">
+                    <p class="message-line">
+                        On this special day, I want you to know how much you mean to me.
+                    </p>
+                    <p class="message-line">
+                        You make every day brighter with your smile, your laugh, and your love.
+                    </p>
+                    <p class="message-line">
+                        Thank you for being the most wonderful person in my life.
+                    </p>
+                    <p class="message-line love-message">
+                        <i class="fas fa-heart"></i> Forever yours <i class="fas fa-heart"></i>
+                    </p>
+                </div>
+
+                <!-- Cake with Candles - Interactive -->
+                <div class="cake-container" onclick="cutCake()">
+                    <div class="cake" id="interactive-cake">
+                        <div class="candle">
+                            <div class="flame"></div>
+                        </div>
+                    </div>
+                    <div class="knife" id="knife">
+                        <span>🔪</span>
+                    </div>
+                    <p class="cake-instruction">Click the cake to cut it! 🎂✨</p>
+                </div>
+
+                <!-- Buttons -->
+                <div class="button-container">
+                    <button class="btn btn-primary" onclick="playMusic()">
+                        <i class="fas fa-music"></i> Play Music
+                    </button>
+                    <button class="btn btn-secondary" onclick="triggerConfetti()">
+                        <i class="fas fa-sparkles"></i> Celebrate!
+                    </button>
+                </div>
+
+                <!-- Photo Gallery Section (you can add photos here) -->
+                <div class="memories-section">
+                    <h3>Our Beautiful Memories ❤️</h3>
+                    <p class="memory-text">
+                        Every moment with you is a treasure that I hold close to my heart.
+                    </p>
+                </div>
+
+
+
+                <!-- Footer -->
+                <div class="footer">
+                    <p>With all my love,</p>
+                    <p class="signature">Your Sweetheart 💕</p>
+                    <p class="date-text">On your special day</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Element for Music -->
+    <audio id="birthday-music" preload="auto">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2745/2745-preview.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- JavaScript for Interactions -->
+    <script>
+        // Play Birthday Music
+        function playMusic() {
+            const audio = document.getElementById('birthday-music');
+            if (audio.paused) {
+                audio.play();
+            } else {
+                audio.pause();
+                audio.currentTime = 0;
+            }
+        }
+
+        // Confetti Effect
+        function triggerConfetti() {
+            const confettiContainer = document.getElementById('confetti');
+            confettiContainer.innerHTML = '';
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti-piece');
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.delay = Math.random() * 0.5 + 's';
+                confetti.style.backgroundColor = ['#ff69b4', '#ff1493', '#ff6b9d', '#ffc0cb', '#ff69b4'][Math.floor(Math.random() * 5)];
+                confettiContainer.appendChild(confetti);
+            }
+        }
+
+        // Add some floating hearts on page load
+        window.addEventListener('load', () => {
+            // Optional: Add confetti automatically
+            // triggerConfetti();
+        });
+
+        // Heart click effect
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('heart')) return;
+            
+            const heart = document.createElement('div');
+            heart.classList.add('click-heart');
+            heart.innerHTML = '💕';
+            heart.style.left = e.pageX + 'px';
+            heart.style.top = e.pageY + 'px';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 1000);
+        });
+
+        // Thank You Button - Redirect to Proposal Page
+        function cutCake() {
+            const knife = document.getElementById('knife');
+            const cake = document.getElementById('interactive-cake');
+            
+            // Add cutting animation
+            knife.classList.add('cutting');
+            cake.classList.add('cut');
+            
+            // Play confetti and redirect
+            triggerConfetti();
+            
+            setTimeout(() => {
+                window.location.href = '/proposal/';
+            }, 1500);
+        }
+
+        // Waste Button - Show "Think Again" Message
+        function respondNo() {
+            // This function is no longer used
+            return;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💍 Will You Be My Forever? 💕</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/proposal.css' %}">
+</head>
+<body>
+    <nav class="romantic-nav">
+        <div class="nav-brand">Forever Us</div>
+        <div class="nav-links">
+            <a href="/" class="nav-link">Birthday</a>
+            <a href="/proposal/" class="nav-link active">Proposal</a>
+            <a href="/congratulations/" class="nav-link">Congratulations</a>
+            <a href="/memories/" class="nav-link">Memories</a>
+        </div>
+    </nav>
+
+    <!-- Animated Background -->
+    <div class="background"></div>
+    
+    <!-- Floating Hearts -->
+    <div class="hearts-container">
+        <div class="heart floating-heart"></div>
+        <div class="heart floating-heart"></div>
+        <div class="heart floating-heart"></div>
+        <div class="heart floating-heart"></div>
+        <div class="heart floating-heart"></div>
+        <div class="heart floating-heart"></div>
+    </div>
+
+    <!-- Confetti -->
+    <div class="confetti-container" id="confetti"></div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="proposal-card">
+            <!-- Ring Animation -->
+            <div class="ring-container">
+                <div class="ring-box">
+                    <div class="ring">💍</div>
+                </div>
+            </div>
+
+            <!-- Main Proposal Message -->
+            <div class="proposal-content">
+                <h1 class="proposal-title">
+                    <span class="word">Will</span>
+                    <span class="word">You</span>
+                    <span class="word">Be</span>
+                    <span class="word">My</span>
+                    <span class="word">Forever?</span>
+                </h1>
+
+                <div class="divider-proposal"></div>
+
+                <!-- Love Message -->
+                <div class="love-message-section">
+                    <p class="intro-text">
+                        Every day with you feels like a beautiful dream come true.
+                    </p>
+                    
+                    <div class="reasons">
+                        <div class="reason-item">
+                            <span class="reason-icon">💫</span>
+                            <p>Because your smile lights up my entire world</p>
+                        </div>
+                        <div class="reason-item">
+                            <span class="reason-icon">❤️</span>
+                            <p>Because my heart beats only for you</p>
+                        </div>
+                        <div class="reason-item">
+                            <span class="reason-icon">🌹</span>
+                            <p>Because you are my greatest blessing</p>
+                        </div>
+                        <div class="reason-item">
+                            <span class="reason-icon">✨</span>
+                            <p>Because forever isn't long enough with you</p>
+                        </div>
+                    </div>
+
+                    <p class="closing-message">
+                        I want to spend every beautiful day making you smile,
+                        <br>
+                        holding your hand through every season of life.
+                        <br><br>
+                        <strong>So, my love... Will you stay with me forever?</strong>
+                    </p>
+                </div>
+
+                <!-- Response Buttons -->
+                <div class="proposal-buttons">
+                    <button class="btn btn-yes" id="yes-btn" onclick="acceptProposal()">
+                        <i class="fas fa-heart"></i> YES, ALWAYS! 💕
+                    </button>
+                    <button class="btn btn-maybe" id="maybe-btn" onclick="maybeProposal()">
+                        <i class="fas fa-hourglass-half"></i> Maybe Later...
+                    </button>
+                    <button class="btn btn-no" id="no-btn" onclick="rejectProposal()">
+                        <i class="fas fa-times"></i> No
+                    </button>
+                </div>
+
+                <!-- Alert Message -->
+                <div id="alert-box" class="alert-box"></div>
+
+                <!-- Footer Message -->
+                <div class="proposal-footer">
+                    <p>Forever yours,</p>
+                    <p class="lover-name">Your One And Only 💕</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio for celebration -->
+    <audio id="celebration-music" preload="auto">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2758/2758-preview.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Trigger Confetti
+        function triggerConfetti() {
+            const confettiContainer = document.getElementById('confetti');
+            confettiContainer.innerHTML = '';
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti-piece');
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.delay = Math.random() * 0.5 + 's';
+                confetti.style.backgroundColor = ['#ff69b4', '#ff1493', '#ff6b9d', '#ffc0cb', '#ff0000'][Math.floor(Math.random() * 5)];
+                confettiContainer.appendChild(confetti);
+            }
+        }
+
+        // Accept Proposal - YES!
+        function acceptProposal() {
+            triggerConfetti();
+            
+            const audio = document.getElementById('celebration-music');
+            audio.play();
+            
+            const alertBox = document.getElementById('alert-box');
+            alertBox.innerHTML = `
+                <div class="success-message">
+                    <h2>🎉 Congratulations, my love! 🎉</h2>
+                    <p class="hearts">💕 💍 💕</p>
+                    <p>You've made me the happiest person alive!</p>
+                    <p class="excited">I LOVE YOU SO MUCH!</p>
+                    <p class="emoji-celebration">🎊✨💑✨🎊</p>
+                </div>
+            `;
+            alertBox.classList.add('show');
+            
+            // Disable buttons
+            document.querySelectorAll('.proposal-buttons .btn').forEach(btn => {
+                btn.disabled = true;
+                btn.style.opacity = '0.6';
+            });
+
+            setTimeout(() => {
+                window.location.href = '/congratulations/';
+            }, 2200);
+        }
+
+        // Maybe Proposal
+        function maybeProposal() {
+            const alertBox = document.getElementById('alert-box');
+            alertBox.innerHTML = `
+                <div class="maybe-message">
+                    <h2>⏰ I Can Wait...</h2>
+                    <p>But not too long, because every second without you by my side feels too long. 💔</p>
+                    <p class="waiting">Take your time, my love... I'll be right here waiting. 💕</p>
+                </div>
+            `;
+            alertBox.classList.add('show');
+            
+            setTimeout(() => {
+                alertBox.classList.remove('show');
+            }, 6000);
+        }
+
+        // Reject Proposal
+        function rejectProposal() {
+            const alertBox = document.getElementById('alert-box');
+            alertBox.innerHTML = `
+                <div class="rejection-message">
+                    <h2>😢 Really?</h2>
+                    <p>But... I believed in us...</p>
+                    <p class="try-again">Maybe you need more convincing? 💔</p>
+                    <p class="emoji-sad">💭😭💭</p>
+                </div>
+            `;
+            alertBox.classList.add('show', 'error');
+            
+            setTimeout(() => {
+                alertBox.classList.remove('show', 'error');
+            }, 5000);
+        }
+
+        function moveButton(buttonId) {
+            const button = document.getElementById(buttonId);
+            if (!button) return;
+
+            const x = (Math.random() * 90) - 45;
+            const y = (Math.random() * 40) - 20;
+            button.style.transform = `translate(${x}px, ${y}px)`;
+            button.style.transition = 'transform 0.35s ease-out';
+        }
+
+        document.querySelectorAll('.proposal-buttons .btn').forEach((btn) => {
+            btn.addEventListener('mouseenter', () => {
+                if (btn.id !== 'yes-btn') {
+                    moveButton(btn.id);
+                }
+            });
+
+            btn.addEventListener('click', () => {
+                if (btn.id !== 'yes-btn') {
+                    moveButton(btn.id);
+                }
+            });
+        });
+
+        // Auto-trigger confetti on page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                triggerConfetti();
+            }, 500);
+        });
+
+        // Click anywhere for floating hearts
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('heart') || e.target.closest('.btn')) return;
+            
+            const heart = document.createElement('div');
+            heart.classList.add('click-heart');
+            heart.innerHTML = '💕';
+            heart.style.left = e.pageX + 'px';
+            heart.style.top = e.pageY + 'px';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 1000);
+        });
+    </script>
+</body>
+</html>

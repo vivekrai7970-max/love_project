@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💖 Our Beautiful Memories</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/memories.css' %}">
+</head>
+<body>
+    <nav class="romantic-nav">
+        <div class="nav-brand">Forever Us</div>
+        <div class="nav-links">
+            <a href="/" class="nav-link">Birthday</a>
+            <a href="/proposal/" class="nav-link">Proposal</a>
+            <a href="/congratulations/" class="nav-link">Congratulations</a>
+            <a href="/memories/" class="nav-link active">Memories</a>
+        </div>
+    </nav>
+
+    <div class="background"></div>
+    <div class="hearts-container">
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h1>Our Beautiful Memories 💕</h1>
+            <p class="subtitle">Every moment with you is a treasure I will always hold close to my heart.</p>
+
+            <div class="gallery">
+                <div class="sparkles" aria-hidden="true">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="photo-card">
+                    <img src="{% static 'WhatsApp Image 2026-07-19 at 2.51.44 AM (1).jpeg' %}" alt="Our last day of friendship and first day of relationship" class="gallery-photo">
+                    <p>Our last day of friendship and first day of relationship</p>
+                </div>
+                <div class="photo-card">
+                    <img src="{% static 'WhatsApp Image 2026-07-19 at 2.51.44 AM.jpeg' %}" alt="Our sweetest moments" class="gallery-photo">
+                    <p>Our sweetest moments</p>
+                </div>
+                <div class="photo-card">
+                    <img src="{% static 'WhatsApp Image 2026-07-19 at 2.51.45 AM (1).jpeg' %}" alt="our first loveliest and happiest hug" class="gallery-photo">
+                    <p>our first loveliest and happiest hug</p>
+                </div>
+                <div class="photo-card">
+                    <img src="{% static 'WhatsApp Image 2026-07-19 at 2.51.45 AM (2).jpeg' %}" alt="Love in every corner" class="gallery-photo">
+                    <p>Love in every corner</p>
+                </div>
+                <div class="photo-card">
+                    <img src="{% static 'WhatsApp Image 2026-07-19 at 2.51.45 AM.jpeg' %}" alt="our first date in our college library" class="gallery-photo">
+                    <p>our first date in our college library</p>
+                </div>
+                <div class="photo-card">
+                    <img src="{% static 'WhatsApp Image 2026-07-19 at 2.51.46 AM (1).jpeg' %}" alt="First year anniversary" class="gallery-photo">
+                    <p>First year anniversary</p>
+                </div>
+                <div class="photo-card">
+                    <img src="{% static 'WhatsApp Image 2026-07-19 at 2.51.46 AM (2).jpeg' %}" alt="The joy of us" class="gallery-photo">
+                    <p>Our first meeting after 8 months and 26 days</p>
+                </div>
+                <div class="photo-card">
+                    <img src="{% static 'WhatsApp Image 2026-07-19 at 2.51.46 AM.jpeg' %}" alt="Forever and always" class="gallery-photo">
+                    <p>Forever and always</p>
+                </div>
+            </div>
+
+            <div class="lightbox" id="photoLightbox" aria-hidden="true">
+                <button class="lightbox-close" id="lightboxClose" aria-label="Close">×</button>
+                <div class="lightbox-content">
+                    <button class="lightbox-arrow lightbox-prev" id="lightboxPrev" aria-label="Previous photo">‹</button>
+                    <img id="lightboxImage" src="" alt="">
+                    <button class="lightbox-arrow lightbox-next" id="lightboxNext" aria-label="Next photo">›</button>
+                    <p id="lightboxCaption" class="lightbox-caption"></p>
+                </div>
+            </div>
+
+            <div class="message-box">
+                <p>Thank you for being my favorite part of every day.</p>
+                <p class="signature">With endless love, your forever person 💖</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const galleryPhotos = Array.from(document.querySelectorAll('.gallery-photo'));
+        const lightbox = document.getElementById('photoLightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+        const closeButton = document.getElementById('lightboxClose');
+        const prevButton = document.getElementById('lightboxPrev');
+        const nextButton = document.getElementById('lightboxNext');
+
+        let activePhotoIndex = 0;
+
+        function openLightbox(index) {
+            activePhotoIndex = index;
+            const photo = galleryPhotos[index];
+            lightboxImage.src = photo.src;
+            lightboxImage.alt = photo.alt;
+            lightboxCaption.textContent = photo.alt;
+            lightbox.classList.add('show');
+            lightbox.setAttribute('aria-hidden', 'false');
+        }
+
+        function updateLightboxFromIndex(index) {
+            const nextIndex = (index + galleryPhotos.length) % galleryPhotos.length;
+            const nextPhoto = galleryPhotos[nextIndex];
+            activePhotoIndex = nextIndex;
+            lightboxImage.src = nextPhoto.src;
+            lightboxImage.alt = nextPhoto.alt;
+            lightboxCaption.textContent = nextPhoto.alt;
+        }
+
+        galleryPhotos.forEach((photo, index) => {
+            photo.addEventListener('click', () => {
+                openLightbox(index);
+            });
+        });
+
+        prevButton.addEventListener('click', () => {
+            updateLightboxFromIndex(activePhotoIndex - 1);
+        });
+
+        nextButton.addEventListener('click', () => {
+            updateLightboxFromIndex(activePhotoIndex + 1);
+        });
+
+        closeButton.addEventListener('click', () => {
+            lightbox.classList.remove('show');
+            lightbox.setAttribute('aria-hidden', 'true');
+        });
+
+        lightbox.addEventListener('click', (event) => {
+            if (event.target === lightbox) {
+                lightbox.classList.remove('show');
+                lightbox.setAttribute('aria-hidden', 'true');
+            }
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (!lightbox.classList.contains('show')) return;
+
+            if (event.key === 'Escape') {
+                lightbox.classList.remove('show');
+                lightbox.setAttribute('aria-hidden', 'true');
+            }
+
+            if (event.key === 'ArrowLeft') {
+                updateLightboxFromIndex(activePhotoIndex - 1);
+            }
+
+            if (event.key === 'ArrowRight') {
+                updateLightboxFromIndex(activePhotoIndex + 1);
+            }
+        });
+    </script>
+</body>
+</html>
