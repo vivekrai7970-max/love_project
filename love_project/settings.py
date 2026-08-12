@@ -136,3 +136,7 @@ STATICFILES_DIRS = [
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 WHITENOISE_ROOT = STATIC_ROOT
+WHITENOISE_USE_FINDERS = True
+
+# Ensure the runtime static root exists on Render, even if collectstatic is skipped.
+os.makedirs(STATIC_ROOT, exist_ok=True)
