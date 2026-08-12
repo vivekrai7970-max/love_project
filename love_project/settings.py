@@ -32,10 +32,10 @@ if allowed_hosts_env:
 else:
     ALLOWED_HOSTS = ['*']
 
-# Allow Render's proxy header for HTTPS only.
+# Allow Render's proxy header for HTTPS.
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-USE_X_FORWARDED_HOST = False
-USE_X_FORWARDED_PORT = False
+USE_X_FORWARDED_HOST = True
+USE_X_FORWARDED_PORT = True
 CSRF_TRUSTED_ORIGINS = [f'https://{os.environ.get("RENDER_EXTERNAL_HOSTNAME", "love-project-8ihk.onrender.com")}']
 
 
