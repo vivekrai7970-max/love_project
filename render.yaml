@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: love-project
+    name: love_project
     env: python
     plan: free
     region: oregon
